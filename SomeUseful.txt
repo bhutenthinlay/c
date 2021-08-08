@@ -111,5 +111,14 @@ removes symbols from your binary
 to make your binary small
 make it difficult to reverse engineer
 
+5. nm binary_name/library_name
+format of nm is <addr> <type> <name>
+<type> U = undefined
+<type> T = global functions
+<type> t = local functions
 
+One important thing to note about static library is that static library is collection of 
+object file. So libc.a will contains object files of malloc.o or printf.o etc. when compiling
+agianst static library, if any contents of an object file is used, the whole object file blob gets
+pulled in into the your final binary. So always keep that in mind.
 
