@@ -40,3 +40,73 @@ Now, back to your problem... how can you make sure that funcB() uses jemalloc wh
 
 *************************************************************************************************************
 In order to check the system calls which are being called in your program. 
+you can use strace command in linux as follows:
+strace ./binaryname
+
+******************************************************************************
+Some useful info on HEADERFILE:
+
+Guards: You might have seen headerfile like this below:
+#ifndef UTIL_H
+#define UTIL_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+//declare your structures
+typedef struct{
+    int age;
+    char name[256];
+}person;
+
+//declare functions
+double getmean(double *values, int length);
+void get_person_name(person *p);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
+
+The first two line i.e 50 and 51, says that check if UTIL_H is already defined or not.
+If not then then define it and use following code as its headerfile. Which basically 
+helps not to duplicate headerfile if it is already called in different file. This is 
+called guards. Make sure to end the guard: i.e. line 71.
+You need to make sure that UTIL_H is unique variable and shouldn't get conflict with 
+variable in the headerfile.
+
+
+The other ifdef from line 53 to 55 tell the compiler that we want this file to be compiled
+as c file and not c++.
+
+
+
+
+**************************************************************************
+inspecting your binary:
+1. strings binary_name
+This utility just gets all the strings from your binary
+
+2. readelf --symbols binary_name
+Get the symbols used inside the binary.
+What are symbols? Symbols are metadata about the addresses of its variables and functions
+ in an associative data structure called a symbol table. The addresses may not be the final 
+ address of the symbol in the final executable. They also contain some information for the 
+ loader and probably some other stuff.
+
+3. objdump -t binary_name
+same as readelf
+
+objdump -s binary_name // get you each section of code
+
+objdump -d bianry_name //gets the assembly of each section
+
+4. strip binary_same
+removes symbols from your binary
+to make your binary small
+make it difficult to reverse engineer
+
+
+
