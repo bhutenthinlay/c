@@ -90,7 +90,7 @@ as c file and not c++.
 **************************************************************************
 inspecting your binary:
 1. strings binary_name
-This utility just gets all the strings from your binary
+This utility just gets all the strings from your binary. Therefore never hardcode any passwords in your code, it can be easily seen with this utility.
 
 2. readelf --symbols binary_name
 Get the symbols used inside the binary.
