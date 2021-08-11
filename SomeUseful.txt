@@ -14,7 +14,7 @@ Sample code to check the function inside a library by calling dlopen.
 int main(void) {
     void * func_addr_default = dlsym(RTLD_DEFAULT, "malloc");
     void * libname= dlopen("lib-name.so", RTLD_NOW);
-    void * func_addr_dlopen = dlsym(lib-name, "funcname");
+    void * func_addr_dlopen = dlsym(libname, "funcname");
 
     printf("func fptr: %p\n", funcname);
     printf("func default: %p\n", func_addr_default);
